@@ -72,7 +72,7 @@ function App() {
 			setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};
 		getUsers();
-	}, []);
+	}, [usersCollectionRef]);
 	//#endregion
 	//#endregion
 	//#endregion
