@@ -1,12 +1,12 @@
 //#region imports
-//#region custom
-import { db } from './firebase-config';
+//#region react
+import { useState, useEffect } from 'react';
 //#endregion
 //#region appCSS
 import './App.css';
 //#endregion
-//#region react
-import { useState, useEffect } from 'react';
+//#region custom
+import { db } from './firebase-config';
 //#endregion
 //#region firestore
 import {
@@ -35,16 +35,18 @@ function App() {
 	//#endregion
 	//#region variables
 	//#region dbCollections
-	const usersCollectionsRef = collection(db, 'users');
+	const usersCollectionRef = collection(db, 'users');
+	console.log('Number 1', usersCollectionRef);
 	//#endregion
 	//#endregion
 	//#region functions
 	//#region createUser()
 	const createUser = async () => {
-		await addDoc(usersCollectionsRef, {
+		await addDoc(usersCollectionRef, {
 			name: newName,
 			age: Number(newAge),
 		});
+		console.log('Number 2', usersCollectionRef);
 	};
 	//#endregion
 	//#region updateUser()
@@ -65,8 +67,8 @@ function App() {
 	//#region getUsers
 	useEffect(() => {
 		const getUsers = async () => {
-			const data = await getDocs(usersCollectionsRef);
-
+			const data = await getDocs(usersCollectionRef);
+			console.log('Number 3', usersCollectionRef);
 			setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		};
 		getUsers();
@@ -94,19 +96,21 @@ function App() {
 			{users.map((user) => {
 				return (
 					<div>
-						{''}
+						{' '}
 						<h1>Name: {user.name}</h1>
 						<h1>Age: {user.age}</h1>
 						<button
 							onClick={() => {
 								updateUser(user.id, user.age);
 							}}>
+							{' '}
 							Increase Age
 						</button>
 						<button
 							onClick={() => {
 								deleteUser(user.id);
 							}}>
+							{' '}
 							Delete User
 						</button>
 					</div>
